@@ -6,6 +6,10 @@ include "layout.php";
     .format {
         background-color: #EC5B5B;
     }
+    #sort-item li:hover{
+        background-color: #53A6D8;
+    }
+
 </style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper" style="background: linear-gradient(-180deg, #BCE6FF 0%, #53A6D8 100%);">
@@ -32,12 +36,24 @@ include "layout.php";
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            <div class="content-header">
+            <div class="content-header" style="height: 80px">
                 <button type="button" style="flex: 1;margin-left: 30px;" class="btn btn-success button-create" data-toggle="modal" data-target="#exampleModal"><a href="themlenhsanxuat.php" style="text-decoration: none;color: #fff;">thêm lệnh sản xuất</a></button>
                 <form method="POST" style="float: right; display: flex;justify-content: space-around;margin-right: 30px;">
                     <input type="text" placeholder="tìm kiếm" class="timkiem" style="width: 400px;">
                     </a>
                 </form>
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    Sắp xếp theo <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" id="sort-item">
+                    <li><a role="button"  id="menu-item1" data-value="sản phẩm">sản phẩm</a></li>
+                    <!-- <li><a role="button" data-value="lenhsanxuat">lệnh sản xuất</a></li>
+                    <li><a role="button" data-value="yeucausanxuat">yêu cầu sản xuất</a></li> -->
+                    <li><a role="button" id="menu-item2" data-value="ngày hoàn thành">ngày hoàn thành</a></li>
+                </ul>
+                <span class="label label-success label-medium" id="sort-item-value">ngày hoàn thành</span>
             </div>
             <table class="table">
 
@@ -85,7 +101,7 @@ include "layout.php";
                     //  $sql = "SELECT * FROM KEHOACHSANXUAT INNER JOIN YEUCAUSANXUAT ON KEHOACHSANXUAT.maYeuCauSanXuat=YEUCAUSANXUAT.maYeuCauSanXuat INNER JOIN SANPHAM ON SANPHAM.maSanPham = YEUCAUSANXUAT.maSanPham";
                     $resultPhanTrang = mysqli_query($con, $sql);
                     $i = 1;
-                    foreach($resultPhanTrang as $r) {
+                    foreach ($resultPhanTrang as $r) {
                         $sp = $r['maSanPham'];
                         $sqlSoLuong = "SELECT sum(soLuongSP) from khothanhpham where maSanPham='$sp'; ";
                         $soLuong = mysqli_fetch_array(mysqli_query($con, $sqlSoLuong))[0];
@@ -184,6 +200,31 @@ include "layout.php";
             key: txt
         }, function(key) {
             $('.danhsachlsx').html(key);
+        })
+    })
+    $('#menu-item1').on('click',function () {
+        let txt = $('#menu-item1').attr('data-value');
+        $('#sort-item-value').html(txt);
+        if(txt==='sản phẩm') {
+            txt='sanpham.tenSanPham';
+        }
+        $.post('softlenhsanxuat.php', {
+            data: txt
+        }, function(data) {
+            $('.danhsachlsx').html(data);
+        })
+        // console.log(txt);
+    })
+    $('#menu-item2').on('click',function () {
+        let txt = $('#menu-item2').attr('data-value');
+        $('#sort-item-value').html(txt);
+        if(txt==='ngày hoàn thành') {
+            txt='ngayHoanThanh';
+        }
+        $.post('softlenhsanxuat.php', {
+            data: txt
+        }, function(data) {
+            $('.danhsachlsx').html(data);
         })
     })
     // $('#data').addClass('format');

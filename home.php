@@ -5,8 +5,7 @@ if (!isset($_SESSION)) {
 //   // Nếu người dùng chưa đăng nhập thì chuyển hướng website sang trang đăng nhập
 if (!isset($_SESSION['tenDangNhap'])) {
   header("Location: http://localhost/btl_php-main/login.php");
-}
-else {
+} else {
   include "config.php";
   include "layout.php";
   $sosp = mysqli_fetch_array(mysqli_query($con, "SELECT COUNT(*) from sanpham;"))[0];
@@ -57,6 +56,33 @@ else {
     .highcharts-data-table tr:hover {
       background: #f1f7ff;
     }
+    footer .social {
+  text-align: center;
+  padding-bottom: 25px;
+  color: white;
+}
+
+footer .social a {
+  color: inherit;
+  font-size: 24px;
+  border: 1px solid steelblue;
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  text-align: center;
+  border-radius: 50%;
+  margin: 0 8px;
+  transition: 0.5s;
+  background-color: white;
+  color: #2c3e50;
+  opacity: 0.8;
+}
+
+footer .social a:hover {
+  opacity: 1;
+}
+
+
   </style>
   <div class="content-wrapper" style="background: linear-gradient(-180deg, #BCE6FF 0%, #53A6D8 100%);">
     <!-- Content Header (Page header) -->
@@ -150,10 +176,15 @@ else {
         <footer class="footer">
           <h2>Top 5 sản phẩm sản xuất nhiều nhất</h2>
           <figure class="highcharts-figure">
-            <div id="container"></div>
-            <p class="highcharts-description">
-               code by phan kim sinh
-            </p>
+            <div id="container">
+             
+            </div>
+              <div class="social mt-1" >
+                  <a href="https://congnghehp.com/"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                  <a href="https://congnghehp.com/"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                  <a href="https://congnghehp.com/"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                </div>
+                <!-- <p class="highcharts-description">code by phan kim sinh </p> -->
           </figure>
         </footer>
       </div>

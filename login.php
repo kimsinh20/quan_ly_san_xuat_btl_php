@@ -62,7 +62,7 @@ if (isset($_POST['submit'])) {
 <html lang="en">
 
 <head>
-  <title>Login V1</title>
+  <title>Đăng nhập</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/png" href="images/icons/favicon.ico" />
@@ -82,7 +82,7 @@ if (isset($_POST['submit'])) {
     <div class="container-login100">
       <div class="wrap-login100">
         <div class="login100-pic js-tilt" data-tilt>
-          <img src="./dist/assest/image/login.png" alt="IMG">
+          <img src="./dist/assest/image/logo-HP-01.png" alt="IMG">
         </div>
 
         <form class="login100-form validate-form" method="POST">
@@ -109,7 +109,8 @@ if (isset($_POST['submit'])) {
           </div>
 
           <div class="container-login100-form-btn">
-            <button type="submit" name="submit" class="btn btn-primary">đăng nhập</button>
+            <button type="submit" name="submit" class="btn btn-outline-info">đăng nhập</button>
+            <button type="button" class="btn btn-outline-success ml-2">quên mật khẩu</button>
             <!-- <button type="button" class="btn btn-danger"><a href="#">exit</a></button> -->
           </div>
         </form>

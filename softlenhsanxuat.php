@@ -1,8 +1,8 @@
 <?php
 include "config.php";
-$data = $_POST['key'];
+$data = $_POST['data'];
 // echo $data;
-$sql = "SELECT * FROM LENHSANXUAT  INNER JOIN CONGDOAN ON CONGDOAN.maCongDoan = LENhSANXUAT.maCongDoan INNER JOIN YEUCAUSANXUAT ON LENHSANXUAT.maYeuCauSanXuat=YEUCAUSANXUAT.maYeuCauSanXuat INNER JOIN SANPHAM ON SANPHAM.maSanPham = YEUCAUSANXUAT.maSanPham  INNER JOIN KHANANGSANXUAT ON KHANANGSANXUAT.tenToSanXuat = LENhSANXUAT.tenToSanXuat where maLenhSanXuat like '$data%' OR YEUCAUSANXUAT.maYeuCauSanXuat like '$data%' OR tenSanPham like '$data%';";
+$sql = "SELECT * FROM LENHSANXUAT  INNER JOIN CONGDOAN ON CONGDOAN.maCongDoan = LENhSANXUAT.maCongDoan INNER JOIN YEUCAUSANXUAT ON LENHSANXUAT.maYeuCauSanXuat=YEUCAUSANXUAT.maYeuCauSanXuat INNER JOIN SANPHAM ON SANPHAM.maSanPham = YEUCAUSANXUAT.maSanPham  INNER JOIN KHANANGSANXUAT ON KHANANGSANXUAT.tenToSanXuat = LENhSANXUAT.tenToSanXuat ORDER by $data ASC;";
 $result = mysqli_query($con, $sql) or die(mysqli_error($con));
 $i = 1;
 $count = mysqli_num_rows($result);
@@ -33,11 +33,10 @@ if ($count <= 0) {
             </th>
         </tr>
         </tr>
-        <!-- <script type="text/javascript">
-            $('.footer').hide();
-           
-        </script> -->
         </footer>
+        <script type='text/javascript'>
+            $('.footer').hide();
+        </script>
 <?php
     }
 }
