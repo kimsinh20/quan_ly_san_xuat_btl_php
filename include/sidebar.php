@@ -185,7 +185,7 @@
 <aside class="control-sidebar control-sidebar-dark" style="margin-top: 5px;">
   <!-- Control sidebar content goes here -->
   <button class="btn btn-danger w-100 m-1"><a href="updateTaiKhoan.php">cập nhật thông tin tài khoản</a></button>
-  <button class="btn btn-danger w-100 m-1" data-bs-toggle="modal" data-bs-target="#exampleModal"><a href="quenmatkhau.php">đổi mật khẩu</a></button>
+  <!-- <button class="btn btn-danger w-100 m-1" data-bs-toggle="modal" data-bs-target="#exampleModal"><a href="quenmatkhau.php">đổi mật khẩu</a></button> -->
   <button class="btn btn-danger w-100 m-1"><a href="logout.php">đăng xuất</a></button>
   
 </aside>

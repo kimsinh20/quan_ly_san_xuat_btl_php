@@ -15,7 +15,7 @@ if (isset($_POST['submit'])) {
 							</script>
 						";
   } else {
-    $sql_check2 = mysqli_query($con, "select * from TAIKHOAN where tenDangNhap = '$tenDangNhap' and matKhau = '$matKhau';");
+    $sql_check2 = mysqli_query($con, "select * from TAIKHOAN where tenDangNhap = '$tenDangNhap' or email='$tenDangNhap' and matKhau = '$matKhau';");
     $dem2 = mysqli_num_rows($sql_check2);
     if ($dem2 == 0)
       echo "
@@ -110,7 +110,7 @@ if (isset($_POST['submit'])) {
 
           <div class="container-login100-form-btn">
             <button type="submit" name="submit" class="btn btn-outline-info">đăng nhập</button>
-            <button type="button" class="btn btn-outline-success ml-2">quên mật khẩu</button>
+            <a href="quenmatkhau.php" class="btn btn-outline-success ml-2">quên mật khẩu</a>
             <!-- <button type="button" class="btn btn-danger"><a href="#">exit</a></button> -->
           </div>
         </form>

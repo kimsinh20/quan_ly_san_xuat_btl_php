@@ -9,7 +9,7 @@ if(isset($_SESSION['tenDangNhap'])) {
   $tenDN=$_SESSION['tenDangNhap'];
   $sql="select anh from taikhoan where `tenDangNhap`='$tenDN';";
   $sqlCheck= mysqli_query($con,$sql);
-  $image=mysqli_fetch_array($sqlCheck)[0];
+  $image=mysqli_fetch_array($sqlCheck)['anh'];
 } else {
 
   $tenDN='chưa đăng nhập';
@@ -66,7 +66,7 @@ if(isset($_SESSION['tenDangNhap'])) {
         </li>
         <li class="nav-item" style="position: relative;top: -7px;">
           <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#" role="button">
-            <img src="<?= $image;?>" style="width: 25px;border-radius: 50%;" alt="err">
+            <img src="./dist/assest/image/<?=$image;?>" style="width: 25px;border-radius: 50%;" alt="err">
             <?= $tenDN ?>
           </a>
         </li>
