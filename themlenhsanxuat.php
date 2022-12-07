@@ -1,9 +1,7 @@
 <?php 
 require_once 'config.php';
 include "layout.php";
-if (isset($_POST['add'])) {
-
-   
+if (isset($_POST['add'])) { 
     $maLenhSanXuat = $_POST['maLenhSanXuat'];
     $tenLenhSanXuat = $_POST['tenLenhSanXuat'];
     $maYeuCauSanXuat=$_POST['maYeuCauSanXuat'];
@@ -13,7 +11,9 @@ if (isset($_POST['add'])) {
     $nguoiLap=$_SESSION['tenDangNhap'];
     $ngayLap=date('Y-m-d');
     $ngayHoanThanh = date('Y-m-d', strtotime($_POST['ngayHoanThanh']));
-    if($_SESSION['soluong']<($soLuong+5)) {
+    $sql_sl = "select soLuong from chitietyeucau where mayeucausanxuat = '$maYeuCauSanXuat';";
+    $so_luong_yeu_cau = mysqli_fetch_array(mysqli_query($con,$sql_sl))['soLuong'];
+    if($so_luong_yeu_cau<($soLuong+5)) {
         echo "
         <script language='javascript'>
         alert('số lượng sản xuất vượt mức cho phép');

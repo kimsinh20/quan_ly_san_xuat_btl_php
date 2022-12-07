@@ -50,8 +50,8 @@ include "layout.php";
 
 <?php
 
-$sqlthongke = "SELECT DATE_FORMAT(yeucausanxuat.ngayTao,'%e-%m') as 'ngayTao',(donGia-sum(chiPhiSx*soLuong)) as 'tongtien' from yeucausanxuat INNER join sanpham on sanpham.maSanPham=yeucausanxuat.maSanPham GROUP by DATE_FORMAT(yeucausanxuat.ngayTao,'%e-%m');";
-$sqltongthu = "SELECT DATE_FORMAT(yeucausanxuat.ngayTao,'%d-%m'),sum(donGia) as 'tongthu' from yeucausanxuat INNER join sanpham on sanpham.maSanPham=yeucausanxuat.maSanPham GROUP by DATE_FORMAT(yeucausanxuat.ngayTao,'%d-%m');";
+$sqlthongke = "SELECT DATE_FORMAT(yeucausanxuat.ngayTao,'%e-%m') as 'ngayTao',(donGia-sum(chiPhiSx*soLuong)) as 'tongtien' from yeucausanxuat INNER JOIN chitietyeucau ON chitietyeucau.maYeuCauSanXuat = YEUCAUSANXUAT.maYeuCauSanXuat inner join sanpham on sanpham.maSanPham = chitietyeucau.maSanPham GROUP by DATE_FORMAT(yeucausanxuat.ngayTao,'%e-%m');";
+$sqltongthu = "SELECT DATE_FORMAT(yeucausanxuat.ngayTao,'%d-%m'),sum(donGia) as 'tongthu' from yeucausanxuat INNER JOIN chitietyeucau ON chitietyeucau.maYeuCauSanXuat = YEUCAUSANXUAT.maYeuCauSanXuat inner join sanpham on sanpham.maSanPham = chitietyeucau.maSanPham GROUP by DATE_FORMAT(yeucausanxuat.ngayTao,'%d-%m');";
 $sqlnhancong = "SELECT tenToSanXuat,sum(khanangsanxuat.soLuongNhanVien*khanangsanxuat.luong) as 'nhancong'from  khanangsanxuat GROUP by tenToSanXuat;";
 $result = mysqli_query($con, $sqlthongke);
 $resultnhancong = mysqli_query($con, $sqlnhancong);

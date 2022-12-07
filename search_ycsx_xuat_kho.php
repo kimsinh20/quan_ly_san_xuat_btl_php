@@ -2,11 +2,11 @@
 include "config.php";
 $data = $_POST['key'];
 // echo $data;
-$sqlchecktinhtrang = "select maYeuCauSanXuat from yeucausanxuat where maYeuCauSanXuat like '$data%' and tinhTrang='chưa xỷ lý' group by maYeuCauSanXuat";
+$sqlchecktinhtrang = "select maYeuCauSanXuat from yeucausanxuat where maYeuCauSanXuat like '$data%' and tinhTrang='thành phẩm' group by maYeuCauSanXuat";
 $result = mysqli_query($con, $sqlchecktinhtrang) or die(mysqli_error($con));
 $count = mysqli_num_rows($result);
 if ($count <= 0) {
-    echo "yêu cầu sản xuất này đã xuất kho hoặc không tồn tại";
+    echo "yêu cầu sản xuất này đã nhập kho hoặc không tồn tại";
     echo "
     <script language='javascript'>
         $('.btn-xuat').hide();

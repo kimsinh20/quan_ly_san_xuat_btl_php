@@ -2,7 +2,7 @@
 include "config.php";
 include "layout.php";
 // $maYeuCauSanXuat = $_POST['maYeuCauSanXuat'];
-$getIdYcsx = $_GET['maid'];
+$getIdYcsx = $_GET['data'];
 
 // select * from sanpham inner join yeucausanxuat on sanpham.maSanPham=yeucausanxuat.masanpham inner join dinhmucnvl on dinhmucnvl.maSanPham=sanpham.maSanPham;
 
@@ -27,13 +27,13 @@ $getIdYcsx = $_GET['maid'];
                         <th scope="col">đơn vị tính</th>
                     </tr>
                 </thead>
-                <form method="post">
+                <form method="post" action="phieu.php?maid=<?=$getIdYcsx?>">
                     <tbody class="">
                         <?php
-                        $sqlSHOW = "select nguyenvatlieu.tenNguyenVatLieu,nguyenvatlieu.donViTinh,danhmucnvl.tenDanhMuc,sum(dinhmucnvl.soLuongNVL) as 'soLuongNVL' from sanpham inner join yeucausanxuat on sanpham.maSanPham=yeucausanxuat.masanpham inner join dinhmucnvl on dinhmucnvl.maSanPham=sanpham.maSanPham inner join nguyenvatlieu on nguyenvatlieu.manguyenvatlieu=dinhmucnvl.manguyenvatlieu inner join danhmucnvl on danhmucnvl.madanhmuc=nguyenvatlieu.madanhmuc where maYeuCauSanXuat='$getIdYcsx' GROUP by nguyenvatlieu.tenNguyenVatLieu,nguyenvatlieu.donViTinh,danhmucnvl.tenDanhMuc ;";
+                        $sqlSHOW = "select nguyenvatlieu.tenNguyenVatLieu,nguyenvatlieu.maNguyenVatLieu,nguyenvatlieu.donViTinh,danhmucnvl.tenDanhMuc,sum(dinhmucnvl.soLuongNVL) as 'soLuongNVL' from yeucausanxuat inner join chitietyeucau ON chitietyeucau.maYeuCauSanXuat = yeucausanxuat.maYeuCauSanXuat inner join sanpham on sanpham.maSanPham = chitietyeucau.maSanPham inner join dinhmucnvl on dinhmucnvl.maSanPham=sanpham.maSanPham inner join nguyenvatlieu on nguyenvatlieu.manguyenvatlieu=dinhmucnvl.manguyenvatlieu inner join danhmucnvl on danhmucnvl.madanhmuc=nguyenvatlieu.madanhmuc where yeucausanxuat.maYeuCauSanXuat='$getIdYcsx' GROUP by nguyenvatlieu.tenNguyenVatLieu,nguyenvatlieu.donViTinh,danhmucnvl.tenDanhMuc;";
                         $resultSQLLSX = mysqli_query($con, $sqlSHOW);
                         $i = 1;
-                        while ($r = mysqli_fetch_array($resultSQLLSX)) {
+                       foreach($resultSQLLSX as $r) {
                         ?>
                             <tr>
                                 <th scope="col"><?php echo $i++; ?></th>
@@ -45,14 +45,10 @@ $getIdYcsx = $_GET['maid'];
                                 <th scope="col"><?php echo $r['donViTinh']; ?></th>
                             </tr>
                         <?php
-                            if (isset($_POST['xuat'])) {
-                                // array_unshift($arr,);
-                                $soLuong = $_POST['sl'];
-                                // $soLuong = $r['soLuongNVL'];
+                                $soLuong = $r['soLuongNVL'];
                                 $nvl = $r['maNguyenVatLieu'];
-    
                                 $ngayLap = date('Y-m-d H:i:s');
-                                $sqlchecksl="SELECT soLuongNVL FROM `khonvl` WHERE maNguyenVatLieu='$nvl';";
+                                $sqlchecksl="SELECT * FROM `khonvl` WHERE maNguyenVatLieu='$nvl';";
                                 $checksl=mysqli_num_rows(mysqli_query($con,$sqlchecksl));
                                 if($checksl<=0) {
                                     echo " <script language='javascript'>
@@ -61,17 +57,17 @@ $getIdYcsx = $_GET['maid'];
                                       </script>
                                           ";  
                                 }
-                                // $nvl = 2;
                                 $sqlqr = "INSERT INTO `phieuxuat` (`maYeuCauSanXuat`, `maKho`,`maNguyenVatLieu`, `soLuongXuat`, `ngayThucHien`) VALUES ('$getIdYcsx', '1','$nvl', '$soLuong', '$ngayLap');";
                                 
                                 $resultqr  = mysqli_query($con, $sqlqr) or die('xuất kho lỗi !!! '.mysqli_errno($con));
                                 $check=0;
                             }
-                        }
+                        // }
                         ?>
                     </tbody>
-                    <button style="width: 200px;margin-right: 20px;" type="submit" name="xuat" class="btn btn-warning mb-3 "><a href="phieu.php?maid=<?=$getIdYcsx?>">xuất kho</a> </button>
-                    <button style="width: 200px;" type="submit" name="" class="btn btn-warning mb-3 "><a href="khonguyenvatlieu.php">quay lại</a> </button>
+                    <button style="width: 200px;margin-right: 20px;" type="submit" name="xuat" class="btn btn-warning mb-3 ">xuất kho</button>
+                    <!-- <button style="width: 200px;margin-right: 20px;" type="submit" name="xuat" class="btn btn-warning mb-3 "><a href="phieu.php?maid=<?=$getIdYcsx?>">xuất kho</a> </button> -->
+                    <a style="width: 200px;" class="btn btn-warning mb-3 " href="khonguyenvatlieu.php">quay lại</a> 
                     <!-- <button style="width: 300px;" type="submit" name="xuat" class="btn btn-warning mb-3 "><a href="phieu.php?maid=<?=$getIdYcsx?>">xuất kho</a> </button> -->
                 </form>
             </table>

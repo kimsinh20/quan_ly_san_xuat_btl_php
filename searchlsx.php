@@ -2,7 +2,7 @@
 include "config.php";
 $data = $_POST['key'];
 // echo $data;
-$sql = "SELECT * FROM LENHSANXUAT  INNER JOIN CONGDOAN ON CONGDOAN.maCongDoan = LENhSANXUAT.maCongDoan INNER JOIN YEUCAUSANXUAT ON LENHSANXUAT.maYeuCauSanXuat=YEUCAUSANXUAT.maYeuCauSanXuat INNER JOIN SANPHAM ON SANPHAM.maSanPham = YEUCAUSANXUAT.maSanPham  INNER JOIN KHANANGSANXUAT ON KHANANGSANXUAT.tenToSanXuat = LENhSANXUAT.tenToSanXuat where maLenhSanXuat like '$data%' OR YEUCAUSANXUAT.maYeuCauSanXuat like '$data%' OR tenSanPham like '$data%';";
+$sql = "SELECT * FROM LENHSANXUAT  INNER JOIN CONGDOAN ON CONGDOAN.maCongDoan = LENhSANXUAT.maCongDoan INNER JOIN YEUCAUSANXUAT ON LENHSANXUAT.maYeuCauSanXuat=YEUCAUSANXUAT.maYeuCauSanXuat  INNER JOIN chitietyeucau ON chitietyeucau.maYeuCauSanXuat = YEUCAUSANXUAT.maYeuCauSanXuat inner join sanpham on sanpham.maSanPham = chitietyeucau.maSanPham INNER JOIN KHANANGSANXUAT ON KHANANGSANXUAT.tenToSanXuat = LENhSANXUAT.tenToSanXuat where maLenhSanXuat like '$data%' OR YEUCAUSANXUAT.maYeuCauSanXuat like '$data%' OR tenSanPham like '$data%';";
 $result = mysqli_query($con, $sql) or die(mysqli_error($con));
 $i = 1;
 $count = mysqli_num_rows($result);

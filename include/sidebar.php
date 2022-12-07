@@ -146,7 +146,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="kho thanh pham" class="nav-link">
+              <a href="khothanhpham.php" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Kho thành phẩm</p>
               </a>

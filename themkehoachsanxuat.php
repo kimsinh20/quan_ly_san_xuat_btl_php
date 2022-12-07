@@ -9,7 +9,7 @@ if (isset($_POST['add'])) {
     $tenToSanXuat = $_POST['tenToSanXuat'];
     $ngayBatDau = date('Y-m-d', strtotime($_POST['ngayBatDau']));
     //soluongsx 
-   $sqlSoLuong = "select soLuong,`ngayGiaoHang` from YEUCAUSANXUAT where maYeuCauSanXuat = '$maYeuCauSanXuat' ";
+   $sqlSoLuong = "select soLuong,`ngayGiaoHang` from YEUCAUSANXUAT inner join chitietyeucau on chitietyeucau.mayeucausanxuat = yeucausanxuat.mayeucausanxuat where yeucausanxuat.maYeuCauSanXuat = '$maYeuCauSanXuat' ";
    $soLuong = mysqli_fetch_array(mysqli_query($con, $sqlSoLuong))[0];
    $ngayGiaoHang= mysqli_fetch_array(mysqli_query($con, $sqlSoLuong))[1];
    //cong suat ngay
