@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: Dec 03, 2022 at 03:09 PM
+-- Generation Time: Dec 08, 2022 at 07:45 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -24,6 +24,28 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `chitietyeucau`
+--
+
+CREATE TABLE `chitietyeucau` (
+  `maYeuCauSanXuat` varchar(50) NOT NULL,
+  `maSanPham` int(11) NOT NULL,
+  `soLuong` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `chitietyeucau`
+--
+
+INSERT INTO `chitietyeucau` (`maYeuCauSanXuat`, `maSanPham`, `soLuong`) VALUES
+('ycsx001', 24, 18),
+('ycsx002', 23, 26),
+('ycsx003', 22, 17),
+('ycsx004', 24, 14);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `congdoan`
 --
 
@@ -38,7 +60,8 @@ CREATE TABLE `congdoan` (
 
 INSERT INTO `congdoan` (`maCongDoan`, `tenCongDoan`) VALUES
 (1, 'cắt'),
-(2, 'may');
+(2, 'may'),
+(4, 'đóng gói');
 
 -- --------------------------------------------------------
 
@@ -101,7 +124,8 @@ CREATE TABLE `kehoachsanxuat` (
 --
 
 INSERT INTO `kehoachsanxuat` (`maKeHoachSanXuat`, `maYeuCauSanXuat`, `tenToSanXuat`, `ngayBatDau`, `ngayKetThuc`) VALUES
-(44, 'ycsx001', 'tổ 1', '2022-12-01', '2022-12-07');
+(1, 'ycsx003', 'tổ 1', '2022-12-07', '2022-12-08'),
+(3, 'ycsx002', 'tổ 2', '2022-12-09', '2023-01-04');
 
 -- --------------------------------------------------------
 
@@ -121,8 +145,9 @@ CREATE TABLE `khanangsanxuat` (
 --
 
 INSERT INTO `khanangsanxuat` (`tenToSanXuat`, `soLuongNhanVien`, `congSuatNgay`, `luong`) VALUES
-('tổ 1', 12, 50, 4000000),
-('tổ 2', 13, 50, 4000000);
+('tổ 1', 12, 53, 4000000),
+('tổ 2', 13, 50, 4000000),
+('tổ 3', 23, 122, 23223);
 
 -- --------------------------------------------------------
 
@@ -160,10 +185,10 @@ CREATE TABLE `khonvl` (
 --
 
 INSERT INTO `khonvl` (`maNguyenVatLieu`, `maKho`, `soLuongNVL`) VALUES
-(1, 1, 200),
-(2, 1, 600),
-(3, 1, 40),
-(4, 1, 40);
+(1, 1, 400),
+(2, 1, 316),
+(3, 1, 376),
+(4, 1, 352);
 
 -- --------------------------------------------------------
 
@@ -182,7 +207,7 @@ CREATE TABLE `khothanhpham` (
 --
 
 INSERT INTO `khothanhpham` (`maKho`, `maSanPham`, `soLuongSP`) VALUES
-(0, 22, 20),
+(0, 22, 62),
 (0, 23, 29),
 (0, 24, 24);
 
@@ -209,22 +234,19 @@ CREATE TABLE `lenhsanxuat` (
 --
 
 INSERT INTO `lenhsanxuat` (`maLenhSanXuat`, `tenLenhSanXuat`, `maCongDoan`, `maYeuCauSanXuat`, `tenToSanXuat`, `ngayHoanThanh`, `nguoiLap`, `ngaylap`, `soLuongSX`) VALUES
-('lsx10', 'abc', 1, 'ycsx002', 'tổ 1', '2022-12-09', 'adminsinh', '2022-12-02', 40),
-('lsx5', 'sản xuất bù', 1, 'ycsx002', 'tổ 1', '2023-11-03', 'quyadmin', '2022-11-29', 20),
-('lsx52', 'sx bù', 1, 'ycsx002', 'tổ 1', '2022-12-07', 'sinhadmin', '2022-11-30', 46),
-('lsx522', '312321', 2, 'ycsx002', 'tổ 1', '2023-11-11', 'sinhadmin', '2022-11-30', 12),
-('lsx528', 'sản xuất bù s', 2, 'ycsx002', 'tổ 1', '2022-12-09', 'quyadmin', '2022-12-01', 2),
-('lsx53', 'adaa', 2, 'ycsx002', 'tổ 1', '2022-12-04', 'sinhadmin', '2022-11-01', 20),
-('lsx62', 'sda', 2, 'ycsx001', 'tổ 1', '2022-12-03', 'sinhadmin', '2022-12-01', 56);
+('lsx2', 'sx bù', 1, 'ycsx004', 'tổ 2', '2022-12-12', 'dungadmin', '2022-12-07', 9),
+('lsx5', 'sx bù', 1, 'ycsx001', 'tổ 1', '2022-12-15', 'dungadmin', '2022-12-07', 12),
+('lsx6', 'sản xuất bù s', 1, 'ycsx002', 'tổ 2', '2022-12-14', 'dungadmin', '2022-12-07', 4),
+('lsx8', 'sản xuất đơn hàng 001', 1, 'ycsx003', 'tổ 1', '2022-12-15', 'dungadmin', '2022-12-07', 13);
 
 --
 -- Triggers `lenhsanxuat`
 --
 DELIMITER $$
 CREATE TRIGGER `insertl` BEFORE INSERT ON `lenhsanxuat` FOR EACH ROW BEGIN    
-            UPDATE yeucausanxuat 
-          SET yeucausanxuat.soLuong=(yeucausanxuat.soLuong-new.soLuongSX)
-          WHERE yeucausanxuat.maYeuCauSanXuat = new.maYeuCauSanXuat;
+            UPDATE chitietyeucau 
+          SET chitietyeucau.soLuong=(chitietyeucau.soLuong-new.soLuongSX)
+          WHERE chitietyeucau.maYeuCauSanXuat = new.maYeuCauSanXuat;
         END
 $$
 DELIMITER ;
@@ -247,10 +269,53 @@ CREATE TABLE `nguyenvatlieu` (
 --
 
 INSERT INTO `nguyenvatlieu` (`maNguyenVatLieu`, `maDanhMuc`, `tenNguyenVatLieu`, `donViTinh`) VALUES
+(0, 0, 'đất sét', 'kg'),
 (1, 2, 'vải', 'mét'),
 (2, 1, 'chỉ', 'cuộn'),
 (3, 1, 'cúc áo', 'cái'),
 (4, 1, 'khóa', 'cái');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `phieunhap`
+--
+
+CREATE TABLE `phieunhap` (
+  `maPhieu` int(11) NOT NULL,
+  `maYeuCauSanXuat` varchar(40) NOT NULL,
+  `maSanPham` int(11) NOT NULL,
+  `soLuongNhap` int(11) DEFAULT NULL,
+  `ngayThucHien` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `phieunhap`
+--
+
+INSERT INTO `phieunhap` (`maPhieu`, `maYeuCauSanXuat`, `maSanPham`, `soLuongNhap`, `ngayThucHien`) VALUES
+(0, 'ycsx003', 22, 21, '2022-12-05 15:10:41'),
+(0, 'ycsx003', 22, 21, '2022-12-06 03:32:16');
+
+--
+-- Triggers `phieunhap`
+--
+DELIMITER $$
+CREATE TRIGGER `insertphieunhap` BEFORE INSERT ON `phieunhap` FOR EACH ROW BEGIN    
+            UPDATE yeucausanxuat 
+          SET yeucausanxuat.tinhTrang='đã nhập kho'
+          WHERE    yeucausanxuat.maYeuCauSanXuat=new.maYeuCauSanXuat;
+        END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `insertpn` BEFORE INSERT ON `phieunhap` FOR EACH ROW BEGIN    
+            UPDATE khothanhpham
+          SET khothanhpham.soLuongSP=(khothanhpham.soLuongSP+new.soLuongNhap)
+          WHERE khothanhpham.maSanPham=new.maSanPham;
+        END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -307,9 +372,8 @@ CREATE TABLE `sanpham` (
 --
 
 INSERT INTO `sanpham` (`maSanPham`, `tenSanPham`, `anhMinhHoa`, `trangThai`, `donViTinh`, `chiPhiSx`) VALUES
-(22, 'dép', 'https://xinhmoingay.net/wp-content/uploads/2020/09/de%CC%81p-la%CC%80o1.jpg', 'chưa sản xuất', 'cái', 4000),
-(23, 'áo thun', 'https://baohothaison.com/wp-content/uploads/2016/07/ao-thanh-nien-tinh-nguyen-tay-dai.jpg', 'chưa sản xuất', 'cái', 7000),
-(24, 'bình giữ nhiệt', 'https://cdn.nguyenkimmall.com/images/detailed/828/10052401-binh-giu-nhiet-elmich-420ml-el3667-1.jpg', 'chưa sản xuất', 'cái', 20000);
+(22, 'giày', NULL, 'chưa sản xuất', 'cái', 20000),
+(23, 'dép', NULL, 'chưa sản xuất', 'cái', 31231);
 
 -- --------------------------------------------------------
 
@@ -332,11 +396,11 @@ CREATE TABLE `taikhoan` (
 --
 
 INSERT INTO `taikhoan` (`tenDangNhap`, `hoVaTen`, `matKhau`, `email`, `soDienThoai`, `anh`, `vaiTro`) VALUES
-('admin', 'admin', '25d55ad283aa400af464c76d713c07ad', 'phankimsinh20@gmail.com', '0961294993', 'https://scontent.fhan5-2.fna.fbcdn.net/v/t1.18169-9/17757493_1756589318004197_8515261495779378798_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=19026a&_nc_ohc=QEmrwefKjlQAX922WGa&_nc_ht=scontent.fhan5-2.fna&oh=00_AfChRMQE071BWYwSSjKiFJWP1WxgRfn7NuDD_jI0A-eInw&oe=63AB675E', 'admin'),
-('dungadmin', 'adminstrator', '25d55ad283aa400af464c76d713c07ad', 'dung@gmail.com', '097373232', 'https://scontent.fhan5-2.fna.fbcdn.net/v/t1.18169-9/17757493_1756589318004197_8515261495779378798_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=19026a&_nc_ohc=QEmrwefKjlQAX922WGa&_nc_ht=scontent.fhan5-2.fna&oh=00_AfChRMQE071BWYwSSjKiFJWP1WxgRfn7NuDD_jI0A-eInw&oe=63AB675E', 'adminsx'),
-('quyadmin', 'adminstrator', '25d55ad283aa400af464c76d713c07ad', 'quy@gmail.com', '0973732323', 'https://kenh14cdn.com/2020/6/30/img0096-1592366363868430058761-1593507888983990295582.jpeg', 'adminsx'),
-('sinhadmin', 'adminstrator', '25d55ad283aa400af464c76d713c07ad', 'sinh@gmail.com', '097123172', 'https://kenh14cdn.com/2020/6/30/img0096-1592366363868430058761-1593507888983990295582.jpeg', 'adminsx'),
-('user1', 'user', '25d55ad283aa400af464c76d713c07ad', 'user1@gmail.com', '0973722323', 'https://phunugioi.com/wp-content/uploads/2021/10/Nhung-mau-anh-the-dep-tip-chup-anh-the-dep-1.jpg', 'user');
+('admin', 'admin', '25d55ad283aa400af464c76d713c07ad', 'phankimsinh20@gmail.com', '0961294993', 'anhthea.jpg', 'admin'),
+('dungadmin', 'nguyễn tiến dũng abc', '25d55ad283aa400af464c76d713c07ad', 'dungadmin@gmail.com', '092932132', 'anhtheb.jpg', 'adminsx'),
+('quyadmin', 'adminstrator', '25d55ad283aa400af464c76d713c07ad', 'quy@gmail.com', '0973732323', 'anhthec.jpg', 'adminsx'),
+('sinhadmin', 'phan kim sinh', '25d55ad283aa400af464c76d713c07ad', 'phankimsinh20@gmail.com', '0961294993', 'anhthea.jpg', 'adminsx'),
+('user1', 'user', '25d55ad283aa400af464c76d713c07ad', 'user1@gmail.com', '0973722323', 'anhthec.jpg', 'user');
 
 -- --------------------------------------------------------
 
@@ -356,9 +420,9 @@ CREATE TABLE `thuctesanxuat` (
 --
 
 INSERT INTO `thuctesanxuat` (`maLenhSanXuat`, `maThucTeSanXuat`, `soLuongDaSanXuat`, `ngaySanXuat`) VALUES
-('lsx10', 1, 20, '2022-11-10'),
-('lsx62', 2, 4, '2022-11-03'),
-('lsx10', 3, 4, '2022-12-01');
+('lsx2', 1, 2, '2022-11-10'),
+('lsx8', 3, 4, '2022-12-01'),
+('lsx8', 5, 13, '2022-12-07');
 
 -- --------------------------------------------------------
 
@@ -368,8 +432,6 @@ INSERT INTO `thuctesanxuat` (`maLenhSanXuat`, `maThucTeSanXuat`, `soLuongDaSanXu
 
 CREATE TABLE `yeucausanxuat` (
   `maYeuCauSanXuat` varchar(50) NOT NULL,
-  `maSanPham` int(11) NOT NULL,
-  `soLuong` int(11) DEFAULT NULL,
   `ngayGiaoHang` date DEFAULT NULL,
   `donGia` double DEFAULT NULL,
   `tinhTrang` varchar(40) NOT NULL,
@@ -380,14 +442,22 @@ CREATE TABLE `yeucausanxuat` (
 -- Dumping data for table `yeucausanxuat`
 --
 
-INSERT INTO `yeucausanxuat` (`maYeuCauSanXuat`, `maSanPham`, `soLuong`, `ngayGiaoHang`, `donGia`, `tinhTrang`, `ngayTao`) VALUES
-('ycsx001', 22, 32, '2022-11-19', 600000000, 'chưa xử lý', '2022-11-28'),
-('ycsx001', 23, 25, '2022-11-01', 300000000, 'chưa xử lý', '2022-11-25'),
-('ycsx002', 22, 21, '2022-12-16', 3000000, 'chưa xỷ lý', '2022-12-03');
+INSERT INTO `yeucausanxuat` (`maYeuCauSanXuat`, `ngayGiaoHang`, `donGia`, `tinhTrang`, `ngayTao`) VALUES
+('ycsx001', '2022-12-09', 30000000, 'chưa xỷ lý', '2023-01-04'),
+('ycsx002', '2024-02-01', 30000000, 'chưa xỷ lý', '2022-12-03'),
+('ycsx003', '2022-12-23', 70000000, 'chưa xỷ lý', '2022-12-06'),
+('ycsx004', '2022-12-31', 3000000, 'chưa xỷ lý', '2022-12-06');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `chitietyeucau`
+--
+ALTER TABLE `chitietyeucau`
+  ADD PRIMARY KEY (`maYeuCauSanXuat`,`maSanPham`),
+  ADD KEY `maSanPham` (`maSanPham`);
 
 --
 -- Indexes for table `congdoan`
@@ -460,6 +530,14 @@ ALTER TABLE `nguyenvatlieu`
   ADD KEY `maDanhMuc` (`maDanhMuc`);
 
 --
+-- Indexes for table `phieunhap`
+--
+ALTER TABLE `phieunhap`
+  ADD PRIMARY KEY (`maPhieu`,`maYeuCauSanXuat`,`ngayThucHien`),
+  ADD KEY `phieuxuat_ibfk_1` (`maYeuCauSanXuat`),
+  ADD KEY `phieuxuat_ibfk_2` (`maSanPham`);
+
+--
 -- Indexes for table `phieuxuat`
 --
 ALTER TABLE `phieuxuat`
@@ -490,8 +568,7 @@ ALTER TABLE `thuctesanxuat`
 -- Indexes for table `yeucausanxuat`
 --
 ALTER TABLE `yeucausanxuat`
-  ADD PRIMARY KEY (`maYeuCauSanXuat`,`maSanPham`),
-  ADD KEY `maSanPham` (`maSanPham`);
+  ADD PRIMARY KEY (`maYeuCauSanXuat`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -501,17 +578,25 @@ ALTER TABLE `yeucausanxuat`
 -- AUTO_INCREMENT for table `congdoan`
 --
 ALTER TABLE `congdoan`
-  MODIFY `maCongDoan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `maCongDoan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `phieuxuat`
 --
 ALTER TABLE `phieuxuat`
-  MODIFY `maPhieu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `maPhieu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+
+--
+-- AUTO_INCREMENT for table `sanpham`
+--
+ALTER TABLE `sanpham`
+  MODIFY `maSanPham` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- Constraints for dumped tables
 --
+ALTER TABLE `nguyenvatlieu`
+  MODIFY `maNguyenVatLieu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- Constraints for table `khonvl`
@@ -519,19 +604,6 @@ ALTER TABLE `phieuxuat`
 ALTER TABLE `khonvl`
   ADD CONSTRAINT `khonvl_ibfk_1` FOREIGN KEY (`maNguyenVatLieu`) REFERENCES `nguyenvatlieu` (`maNguyenVatLieu`),
   ADD CONSTRAINT `khonvl_ibfk_2` FOREIGN KEY (`maKho`) REFERENCES `kho` (`maKho`);
-
---
--- Constraints for table `phieuxuat`
---
-ALTER TABLE `phieuxuat`
-  ADD CONSTRAINT `phieuxuat_ibfk_1` FOREIGN KEY (`maYeuCauSanXuat`) REFERENCES `yeucausanxuat` (`maYeuCauSanXuat`),
-  ADD CONSTRAINT `phieuxuat_ibfk_2` FOREIGN KEY (`maNguyenVatLieu`) REFERENCES `khonvl` (`maNguyenVatLieu`);
-
---
--- Constraints for table `yeucausanxuat`
---
-ALTER TABLE `yeucausanxuat`
-  ADD CONSTRAINT `yeucausanxuat_ibfk_1` FOREIGN KEY (`maSanPham`) REFERENCES `sanpham` (`maSanPham`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
