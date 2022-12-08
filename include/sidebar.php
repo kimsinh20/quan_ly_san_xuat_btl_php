@@ -50,7 +50,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="thuctesanxuat.php" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Thực tế sản xuất</p>
               </a>
@@ -100,12 +100,12 @@
                 <p>Nguyên vật liệu</p>
               </a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a href="qlthietbi.php" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Thiết bị</p>
               </a>
-            </li>
+            </li> -->
             <li class="nav-item">
               <a href="dinhmucvattu.php" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>

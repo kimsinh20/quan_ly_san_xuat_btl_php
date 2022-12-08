@@ -2,7 +2,7 @@
 require_once 'config.php';
 include "layout.php";
 $idEdit=$_GET['id'];
-$sqlKHSX="SELECT * FROM KEHOACHSANXUAT WHERE maKeHoachSanXuat=$idEdit";
+$sqlKHSX="SELECT * FROM KEHOACHSANXUAT WHERE maKeHoachSanXuat='$idEdit'";
 $result= mysqli_fetch_assoc(mysqli_query($con,$sqlKHSX));
 
 if (isset($_POST['edit'])) {

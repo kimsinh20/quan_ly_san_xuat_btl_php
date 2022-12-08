@@ -11,15 +11,14 @@ include "layout.php";
                     <h6 class="m-0">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb text-decoration-none">
-                            <li class="breadcrumb-item"><a href="#" class="text-success">vật tư</a></li>
-                                <li class="breadcrumb-item"><a href="quanlynguyenvatlieu.php" class="text-success">nguyên vật liệu</a></li>
+                                <li class="breadcrumb-item"><a href="kehoachsanxuat.php" class="text-success">công đoạn</a></li>
                             </ol>
                         </nav>
                     </h6>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">nguyên vật liệu</a></li>
+                        <li class="breadcrumb-item"><a href="#">công đoạn</a></li>
                         <!-- <li class="breadcrumb-item active">Home</li> -->
                     </ol>
                 </div><!-- /.col -->
@@ -32,7 +31,7 @@ include "layout.php";
     <section class="content">
         <div class="container-fluid">
             <div class="content-header">
-                <button type="button" style="flex: 1;margin-left: 30px;" class="btn btn-success button-create" data-toggle="modal" data-target="#exampleModal"><a href="themnguyenvatlieu.php" style="text-decoration: none;color: #fff;">thêm nguyên vật liệu</a></button>
+                <button type="button" style="flex: 1;margin-left: 30px;" class="btn btn-success button-create" data-toggle="modal" data-target="#exampleModal"><a href="themcongdoan.php" style="text-decoration: none;color: #fff;">thêm công đoạn</a></button>
                 <form method="POST" style="float: right; display: flex;justify-content: space-around;margin-right: 30px;">
                     <input type="text" placeholder="tìm kiếm" class="timkiem" style="width: 400px;">
                     </a>
@@ -42,11 +41,11 @@ include "layout.php";
                         Sắp xếp theo <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" id="sort-item">
-                        <li><a role="button" id="menu-item1" data-value="sản phẩm">tên nguyên vật liệu</a></li>
+                        <li><a role="button" id="menu-item1" data-value="sản phẩm">tên công đoạn</a></li>
                         <!-- <li><a role="button" data-value="lenhsanxuat">lệnh sản xuất</a></li>
                     <li><a role="button" data-value="yeucausanxuat">yêu cầu sản xuất</a></li> -->
                     </ul>
-                    <span class="label label-success label-medium" id="sort-item-value">tên nguyên vật liệu</span>
+                    <span class="label label-success label-medium" id="sort-item-value">tên công đoạn</span>
                 </div>
             </div>
             <table class="table">
@@ -54,10 +53,8 @@ include "layout.php";
                 <thead>
                     <tr>
                         <th scope="col">STT</th>
-                        <th scope="col">Mã nguyên vật liệun</th>
-                        <th scope="col">Tên nguyên vật liệu</th>
-                        <th scope="col">đơn vị tính</th>
-                        <th scope="col">danh mục</th>
+                        <th scope="col">Mã công đoạn</th>
+                        <th scope="col">Tên công đoạn</th>
                         <th scope="col"></th>
                         <th scope="col"></th>
                     </tr>
@@ -83,7 +80,7 @@ include "layout.php";
 
                     // Chạy 1 MySQL query để hiện thị kết quả trên trang hiện tại  
 
-                    $sql = "SELECT * FROM nguyenvatlieu inner join danhmucnvl on danhmucnvl.madanhmuc = nguyenvatlieu.madanhmuc  order by tenNguyenVatLieu ASC LIMIT $from, $max_results";
+                    $sql = "SELECT * FROM congdoan  order by tencongdoan ASC LIMIT $from, $max_results";
 
 
                     //  $sql = "SELECT KEHOACHSANXUAT.maYeuCauSanXuat,maKeHoachSanXuat,`tenSanPham`,`soLuong`,`tenToSanXuat`,`ngayBatDau`,`ngayKetThuc` FROM KEHOACHSANXUAT INNER JOIN YEUCAUSANXUAT ON KEHOACHSANXUAT.maYeuCauSanXuat=YEUCAUSANXUAT.maYeuCauSanXuat INNER JOIN SANPHAM ON SANPHAM.maSanPham = YEUCAUSANXUAT.maSanPham";
@@ -93,13 +90,11 @@ include "layout.php";
                     ?>
                         <tr>
                             <th scope="col"><?php echo $i++; ?></th>
-                            <th scope="col"><?php echo $r['maNguyenVatLieu']; ?></th>
-                            <th scope="col"><?php echo $r['tenNguyenVatLieu']; ?></th>
-                            <th scope="col"><?php echo $r['donViTinh']; ?></th>
-                            <th scope="col"><?php echo $r['tenDanhMuc']; ?></th>
+                            <th scope="col"><?php echo $r['maCongDoan']; ?></th>
+                            <th scope="col"><?php echo $r['tenCongDoan']; ?></th>
                             <th scope="col">
-                                <a style="margin-right: 15px;" href="./suanguyenvatlieu.php?id=<?= $r['manguyenvatlieu'] ?>" class="btn btn btn-danger">sửa</a>
-                                <a href="./xoanguyenvatlieu.php?id=<?= $r['maNguyenVatLieu'] ?>" class="btn btn-info">xóa</a>
+                                <a style="margin-right: 15px;" href="./suacongdoan.php?id=<?= $r['maCongDoan'] ?>" class="btn btn btn-danger">sửa</a>
+                                <a href="./xoacongdoan.php?id=<?= $r['maCongDoan'] ?>" class="btn btn-info">xóa</a>
                             </th>
                         </tr>
                     <?php
@@ -112,7 +107,7 @@ include "layout.php";
                     <?php
 
                     // Tính tổng kết quả trong toàn DB:  
-                    $total_results = mysqli_fetch_array(mysqli_query($con, "SELECT COUNT(*) as Num FROM nguyenvatlieu where 1"))[0];
+                    $total_results = mysqli_fetch_array(mysqli_query($con, "SELECT COUNT(*) as Num FROM kehoachsanxuat where 1"))[0];
 
                     // Tính tổng số trang. Làm tròn lên sử dụng ceil()  
                     $total_pages = ceil($total_results / $max_results);
