@@ -102,6 +102,7 @@ $tong_doanh_thu=$tong_doanh_thu-$tong_nhan_cong;
 $arrX = array_keys($arr);
 $arrY = array_values($arr);
 $lai=number_format(100*($tong_doanh_thu/$tong_thu),1);
+($lai>0) ? $lai : "lỗ";
 // echo json_encode($arrY);
 ?>
 <figure class="highcharts-figure">
@@ -113,7 +114,7 @@ $lai=number_format(100*($tong_doanh_thu/$tong_thu),1);
         tổng thu thực tế khi trừ chi phí sản xuất : <?=$tong_doanh_thu?> VND
     </p>
     <p class="highcharts-description" style="margin-left: 300px;">
-        lãi : <?php echo $lai;?> %
+        tình trang lãi/lỗ : <?php echo $lai;?> %
     </p>
     <button type="button" style="margin-left: 450px;margin-top:30px ;" class="btn btn-danger btn-lg" data-dismiss="modal"><a href="home.php" style="text-decoration: none;color: #fff;">trang chủ</a></button>
 </figure>

@@ -64,7 +64,7 @@ if (isset($_POST['update'])) {
                         $resultMaycsx = mysqli_query($con, $sqlSelectMaycsx);
                         while ($r = mysqli_fetch_array($resultMaycsx)) {
                         ?>
-                            <option style="height: 40px;" value="<?php echo $r['maYeuCauSanXuat']; ?>"><?php echo $r['maYeuCauSanXuat']; ?></option>
+                            <option style="height: 40px;" value="<?php echo $r['maYeuCauSanXuat']; ?>" <?=($resultSQLLSX['maYeuCauSanXuat']==$r['maYeuCauSanXuat']) ? 'selected':'';?>><?php echo $r['maYeuCauSanXuat']; ?></option>
                         <?php
                         }
                         ?>
@@ -81,7 +81,7 @@ if (isset($_POST['update'])) {
                         $resultMaycsx = mysqli_query($con, $sqlSelectMaycsx);
                         while ($r = mysqli_fetch_array($resultMaycsx)) {
                         ?>
-                            <option style="height: 40px;" value="<?php echo $r['tenToSanXuat']; ?>"><?php echo $r['tenToSanXuat']; ?></option>
+                            <option style="height: 40px;" value="<?php echo $r['tenToSanXuat']; ?>" <?=($resultSQLLSX['tenToSanXuat']==$r['tenToSanXuat']) ? 'selected':'';?>><?php echo $r['tenToSanXuat']; ?></option>
                         <?php
                         }
                         ?>
@@ -98,7 +98,7 @@ if (isset($_POST['update'])) {
                         $resultCongDoan = mysqli_query($con, $sqlSelectCongDoan);
                         while ($r = mysqli_fetch_array($resultCongDoan)) {
                         ?>
-                            <option style="height: 40px;" value="<?= $r['maCongDoan'] ?>"><?= $r['tenCongDoan'];  ?></option>
+                            <option style="height: 40px;" value="<?= $r['maCongDoan'] ?>" <?=($resultSQLLSX['maCongDoan']==$r['maCongDoan']) ? 'selected':'';?>><?= $r['tenCongDoan'];  ?></option>
                         <?php
                         }
                         ?>

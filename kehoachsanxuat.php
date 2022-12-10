@@ -1,9 +1,4 @@
 <?php
-// session_start();
-// if (isset($tenDN) == false) {
-//     // Nếu người dùng chưa đăng nhập thì chuyển hướng website sang trang đăng nhập
-//     header('Location: http://localhost/btl_php-main/login.php');
-// } else {
 include "layout.php";
 ?>
 <!-- Content Wrapper. Contains page content -->
@@ -114,7 +109,7 @@ include "layout.php";
                             <th scope="col"><?php echo $i++; ?></th>
                             <th scope="col"><?php echo $r['maYeuCauSanXuat']; ?></th>
                             <th scope="col"><?php echo $r['tenSanPham']; ?></th>
-                            <th scope="col"><img src="<?= $r['anhMinhHoa'] ?>" alt="error" style="width: 50px;border-radius: 10px;"></th>
+                            <th scope="col"><img src="./dist/assest/image/<?=$r['anhMinhHoa'] ?>" alt="error" style="width: 50px;border-radius: 10px;"></th>
                             <th scope="col"><?php echo $r['soLuong']; ?></th>
                             <th scope="col"><?php echo $sl; ?></th>
                             <th scope="col"><?php echo $r['tenToSanXuat']; ?></th>

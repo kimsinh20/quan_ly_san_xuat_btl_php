@@ -33,7 +33,7 @@ if(is_nan($tiendo)) {
     <div class="wrapper row">
         <div class="preview col-md-6 m">
             <div class="preview-pic tab-content" style="margin-left: 50px;">
-                <div class="tab-pane active" id="pic-1"><img style="width: 450px;height:500px ;" src="<?= $resultSQLLSX['anhMinhHoa'] ?>" /></div>
+                <div class="tab-pane active" id="pic-1"><img style="width: 450px;height:500px ;" src="./dist/assest/image/<?=$resultSQLLSX['anhMinhHoa'] ?>" /></div>
             </div>
         </div>
         <div class="details col-md-6 m">

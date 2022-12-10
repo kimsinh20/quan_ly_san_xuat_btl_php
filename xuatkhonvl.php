@@ -27,7 +27,7 @@ $getIdYcsx = $_GET['data'];
                         <th scope="col">đơn vị tính</th>
                     </tr>
                 </thead>
-                <form method="post" action="phieu.php?maid=<?=$getIdYcsx?>">
+                <form method="post" action="phieuxuat.php?maid=<?=$getIdYcsx?>">
                     <tbody class="">
                         <?php
                         $sqlSHOW = "select nguyenvatlieu.tenNguyenVatLieu,nguyenvatlieu.maNguyenVatLieu,nguyenvatlieu.donViTinh,danhmucnvl.tenDanhMuc,sum(dinhmucnvl.soLuongNVL) as 'soLuongNVL' from yeucausanxuat inner join chitietyeucau ON chitietyeucau.maYeuCauSanXuat = yeucausanxuat.maYeuCauSanXuat inner join sanpham on sanpham.maSanPham = chitietyeucau.maSanPham inner join dinhmucnvl on dinhmucnvl.maSanPham=sanpham.maSanPham inner join nguyenvatlieu on nguyenvatlieu.manguyenvatlieu=dinhmucnvl.manguyenvatlieu inner join danhmucnvl on danhmucnvl.madanhmuc=nguyenvatlieu.madanhmuc where yeucausanxuat.maYeuCauSanXuat='$getIdYcsx' GROUP by nguyenvatlieu.tenNguyenVatLieu,nguyenvatlieu.donViTinh,danhmucnvl.tenDanhMuc;";

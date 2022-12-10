@@ -29,7 +29,7 @@ $getIdYcsx = $_GET['data'];
                 <form method="post" action="phieunhap.php?maid=<?=$getIdYcsx?>">
                     <tbody class="">
                         <?php
-                        $sqlSHOW = "select * from sanpham inner join yeucausanxuat on sanpham.maSanPham=yeucausanxuat.masanpham where mayeucausanxuat = '$getIdYcsx' ;";
+                        $sqlSHOW = "select * from yeucausanxuat INNER JOIN chitietyeucau ON chitietyeucau.maYeuCauSanXuat = YEUCAUSANXUAT.maYeuCauSanXuat inner join sanpham on sanpham.maSanPham = chitietyeucau.maSanPham where chitietyeucau.mayeucausanxuat = '$getIdYcsx' ;";
                         $resultSQLLSX = mysqli_query($con, $sqlSHOW);
                         $i = 1;
                         $arr=[];

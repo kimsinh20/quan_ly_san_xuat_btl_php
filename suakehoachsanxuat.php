@@ -67,14 +67,13 @@ if (isset($_POST['edit'])) {
                     <label for="maYeuCauSanXuat">Mã yêu cầu sản xuất</label>
                     <br>
                     <select class="form-select" name="maYeuCauSanXuat" aria-label="Default select example" style="width: 500px;height: 40px;">
-                       <option selected><?=$result['maYeuCauSanXuat']?></option>
                        <?php
                         require_once 'config.php';
                         $sqlSelectMaycsx = "SELECT `maYeuCauSanXuat` FROM `yeucausanxuat` WHERE 1;";
                         $resultMaycsx = mysqli_query($con, $sqlSelectMaycsx);
                         while ($r = mysqli_fetch_array($resultMaycsx)) {
                         ?>
-                            <option style="height: 40px;" value="<?php echo $r['maYeuCauSanXuat']; ?>"><?php echo $r['maYeuCauSanXuat']; ?></option>
+                            <option style="height: 40px;" value="<?php echo $r['maYeuCauSanXuat']; ?>" <?=($result['maYeuCauSanXuat']==$r['maYeuCauSanXuat']) ? 'selected':'';?>><?php echo $r['maYeuCauSanXuat']; ?></option>
                         <?php
                         }
                         ?>
@@ -91,7 +90,7 @@ if (isset($_POST['edit'])) {
                         $resultMaycsx = mysqli_query($con, $sqlSelectMaycsx);
                         while ($r = mysqli_fetch_array($resultMaycsx)) {
                         ?>
-                            <option style="height: 40px;" value="<?php echo $r['tenToSanXuat']; ?>"><?php echo $r['tenToSanXuat']; ?></option>
+                            <option style="height: 40px;" value="<?php echo $r['tenToSanXuat']; ?>" <?=($result['tenToSanXuat']==$r['tenToSanXuat']) ? 'selected':'';?> ><?php echo $r['tenToSanXuat']; ?></option>
                         <?php
                         }
                         ?>

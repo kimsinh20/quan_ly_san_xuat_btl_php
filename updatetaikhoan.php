@@ -17,7 +17,7 @@ $hoVaTen=$_POST['hoVaTen'];
 $matKhau=md5($_POST['matKhau'], false);
 $email=$_POST['email'];
 $soDienThoai=$_POST['soDienThoai'];
-$anh=isset($_FILES['hinhanh']['name']) ?$_FILES['hinhanh']['name'] :"";
+$anh=isset($_FILES['hinhanh']['name']) ? $_FILES['hinhanh']['name'] :$result['anh'];
 $target_dir = './dist/assest/image/';
 $target_file = $target_dir . basename($anh);
 move_uploaded_file($_FILES["hinhanh"]["tmp_name"],$target_file);
@@ -68,7 +68,7 @@ if($result_update) {
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">ảnh</label>
                         <input type="file" class="form-control mb-3"  name="hinhanh" id="exampleInputEmail1" aria-describedby="emailHelp" >
-                        <!-- <img src="./dist/assest/image/<?=$anh;?>" alt="error" style="width: 250px" alt="err"> -->
+                        <!-- <img src="./dist/assest/image/<?=$result['anh'];?>" alt="error" style="width: 250px" alt="err"> -->
                     </div>
                     <button type="submit" class="btn btn-primary mr-3" name="luu">lưu</button>
                     <button type="submit" class="btn btn-primary"><a href="home.php" style="color: #fff;text-decoration: none;">thoát</a></button>
