@@ -111,19 +111,11 @@ include "layout.php";
                         }
                         $_SESSION['soluong'] = $sl;
                         $maLsx = $r['maLenhSanXuat'];
-                        $sqlcheckngay = "select lenhsanxuat.ngayHoanThanh - CURDATE() as 'songay' from lenhsanxuat where maLenhSanXuat='$maLsx'; ";
-                        $resultcheckngay = mysqli_fetch_array(mysqli_query($con, $sqlcheckngay))['songay'];
-                        if ($sqlcheckngay < 0) {
-                            echo "
-                         <script language='javascript'>
-                                $('.data').addClass('format');
-                                // console.log('ko dc')
-                               
-                        </script>
-                            ";
-                        }
+                        $sqlcheckngay = "select (lenhsanxuat.ngayHoanThanh - CURDATE())<3 as 'check',lenhsanxuat.maLenhSanXuat 
+                        from lenhsanxuat where maLenhSanXuat='$maLsx';";
+                        $resultcheckngay = mysqli_fetch_array(mysqli_query($con, $sqlcheckngay))['check'];
                     ?>
-                        <tr class="data" id="">
+                        <tr class="data" id="" <?=($resultcheckngay==1)?"style='color: red;'":"";?> >
                             <th scope="col"><?php echo $i++; ?></th>
                             <th scope="col"><?php echo $r['maLenhSanXuat']; ?></th>
                             <!-- <th scope="col"><?php echo $r['tenLenhSanXuat']; ?></th> -->
@@ -134,7 +126,7 @@ include "layout.php";
                             <th scope="col"><?php echo $r['tenToSanXuat']; ?></th>
                             <th scope="col"><?php echo $r['tenCongDoan']; ?></th>
                             <th scope="col"><?php echo $r['ngayHoanThanh']; ?></th>
-                            <th scope="col">
+                            <th scope="col" >
                                 <a style="margin-right: 15px;" href="./xemlenhsanxuat.php?id=<?= $r['maLenhSanXuat'] ?>" class="btn btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                 <a style="margin-right: 15px;" href="./sualenhsanxuat.php?id=<?= $r['maLenhSanXuat'] ?>" class="btn btn btn-danger">sửa</a>
                                 <a href="./xoalenhsanxuat.php?id=<?= $r['maLenhSanXuat'] ?>&masp=<?= $r['maSanPham'] ?>" class="btn btn-info">xóa</a>
