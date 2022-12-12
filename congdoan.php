@@ -107,7 +107,7 @@ include "layout.php";
                     <?php
 
                     // Tính tổng kết quả trong toàn DB:  
-                    $total_results = mysqli_fetch_array(mysqli_query($con, "SELECT COUNT(*) as Num FROM kehoachsanxuat where 1"))[0];
+                    $total_results = mysqli_fetch_array(mysqli_query($con, "SELECT COUNT(*) as Num FROM congdoan where 1"))[0];
 
                     // Tính tổng số trang. Làm tròn lên sử dụng ceil()  
                     $total_pages = ceil($total_results / $max_results);

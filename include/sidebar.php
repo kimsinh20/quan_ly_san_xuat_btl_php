@@ -116,7 +116,7 @@
         </li>
         <li class="nav-item">
           <a href="congdoan.php" class="nav-link">
-            <i class="fa-solid fa-shop"></i>
+          <i class="fa-solid fa-book"></i>
             <p>
               công đoạn
             </p>
@@ -132,7 +132,7 @@
         </li>
         <li class="nav-item">
           <a href="#" class="nav-link">
-            <i class="fa-solid fa-container-storage"></i>
+          <i class="fa-solid fa-kaaba"></i>
             <p>
               Kho
               <i class="right fas fa-angle-left"></i>
@@ -155,7 +155,7 @@
         </li>
         <li class="nav-item">
           <a href="#" class="nav-link">
-            <i class="fa-solid fa-container-storage"></i>
+          <i class="fa-solid fa-calendar-days"></i>
             <p>
               thống kê
               <i class="right fas fa-angle-left"></i>
@@ -175,6 +175,14 @@
               </a>
             </li>
           </ul>
+        </li>
+        <li class="nav-item">
+          <a href="taikhoan.php" class="nav-link">
+          <i class="fa-solid fa-users"></i>
+            <p>
+              quản lý tài khoản
+            </p>
+          </a>
         </li>
       </ul>
     </nav>

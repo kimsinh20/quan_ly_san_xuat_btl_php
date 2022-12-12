@@ -90,7 +90,7 @@ include "layout.php";
                         each.data = Object.values(each.data);
                         arrDetail.push(each);
                     })
-                    // console.log(response);
+                    console.log(response);
                     Highcharts.chart('container', {
                         chart: {
                             type: 'column'

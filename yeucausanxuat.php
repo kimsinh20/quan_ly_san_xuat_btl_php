@@ -38,8 +38,8 @@ include "layout.php";
     <div class="container-fluid">
       <div class="content-header" style="height: 80px">
         <button type="button" style="flex: 1;margin-left: 30px;" class="btn btn-success button-create" data-toggle="modal" data-target="#exampleModal">
-        <a href="themyeucausanxuat.php" style="text-decoration: none;color: #fff;">thêm yêu cầu sản xuất</a>
-      </button>
+          <a href="themyeucausanxuat.php" style="text-decoration: none;color: #fff;">thêm yêu cầu sản xuất</a>
+        </button>
         <form method="POST" style="float: right; display: flex;justify-content: space-around;margin-right: 30px;">
           <input type="text" placeholder="tìm kiếm" class="timkiem" style="width: 400px;">
           </a>
@@ -99,9 +99,13 @@ include "layout.php";
 
           $resultPhanTrang = mysqli_query($con, $sql);
           $i = 1;
-          foreach($resultPhanTrang as $r) {
+          foreach ($resultPhanTrang as $r) {
+            $maYCSX = $r['maYeuCauSanXuat'];
+            $sqlcheckngay = "select (yeucausanxuat.ngayGiaoHang - CURDATE())<3 as 'check',yeucausanxuat.maYeuCauSanXuat 
+                        from yeucausanxuat where maYeuCauSanXuat='$maYCSX';";
+            $resultcheckngay = mysqli_fetch_array(mysqli_query($con, $sqlcheckngay))['check'];
           ?>
-            <tr class="data" id="">
+            <tr class="data" id="" <?=($resultcheckngay==1)?"style='color: red;'":"";?>>
               <th scope="col"><?php echo $i++; ?></th>
               <th scope="col"><?php echo $r['maYeuCauSanXuat']; ?></th>
               <th scope="col"><?php echo $r['tenSanPham']; ?></th>
@@ -109,11 +113,11 @@ include "layout.php";
               <th scope="col"><?php echo $r['donGia']; ?></th>
               <th scope="col"><?php echo $r['ngayGiaoHang']; ?></th>
               <th scope="col"><?php echo $r['tinhTrang']; ?></th>
-              <th scope="col" class="text-center"><a href="#"><i class="fa-solid fa-plus"></i></a></th>
-              <th scope="col" class="text-center"><a href="#"><i class="fa-solid fa-plus"></i></a></th>
+              <th scope="col" class="text-center"><a href="kehoachvattu.php?data=<?= $r['maYeuCauSanXuat'] ?>"><i class="fa-solid fa-plus"></i></a></th>
+              <th scope="col" class="text-center"><a href="taolenhsanxuat.php?id=<?= $r['maYeuCauSanXuat'] ?>&sl=<?= $r['soLuong'] ?>&ngaygiaohang=<?= $r['ngayGiaoHang'] ?>"><i class="fa-solid fa-plus"></i></a></th>
               <th scope="col">
-                <a style="margin-right: 15px;" href="./suayeucausanxuat.php?id=<?= $r['maYeuCauSanXuat'] ?>&masp=<?=$r['maSanPham']?>" class="btn btn btn-danger">sửa</a>
-                <a href="./xoayeucausanxuat.php?id=<?= $r['maYeuCauSanXuat'] ?>&masp=<?=$r['maSanPham']?>" class="btn btn-info">xóa</a>
+                <a style="margin-right: 15px;" href="./suayeucausanxuat.php?id=<?= $r['maYeuCauSanXuat'] ?>&masp=<?= $r['maSanPham'] ?>" class="btn btn btn-danger">sửa</a>
+                <a href="./xoayeucausanxuat.php?id=<?= $r['maYeuCauSanXuat'] ?>&masp=<?= $r['maSanPham'] ?>" class="btn btn-info">xóa</a>
               </th>
             </tr>
           <?php
@@ -126,7 +130,7 @@ include "layout.php";
           <?php
 
           // Tính tổng kết quả trong toàn DB:  
-          $total_results = mysqli_fetch_array(mysqli_query($con, "SELECT COUNT(*) as Num FROM yeucausanxuat where 1"))[0];
+          $total_results = mysqli_fetch_array(mysqli_query($con, "SELECT COUNT(*) as Num FROM YEUCAUSANXUAT INNER JOIN chitietyeucau ON chitietyeucau.maYeuCauSanXuat = YEUCAUSANXUAT.maYeuCauSanXuat inner join sanpham on sanpham.maSanPham = chitietyeucau.maSanPham where 1"))[0];
 
           // Tính tổng số trang. Làm tròn lên sử dụng ceil()  
           $total_pages = ceil($total_results / $max_results);

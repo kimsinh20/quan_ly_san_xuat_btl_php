@@ -28,6 +28,10 @@ include "layout.php";
 
                     </h6>
                 </div><!-- /.col -->
+                <div class="col text-center" >
+                    <button class="btn btn-success "><a href="export.php" style="color: #fff;text-decoration: none;"><i class="fa-solid fa-file-export"></i>export</a></button>
+                    <button class="btn btn-danger "><a href="import.php" style="color: #fff;text-decoration: none;"><i class="fa-solid fa-file-import"></i>import</a></button>
+                </div>
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>

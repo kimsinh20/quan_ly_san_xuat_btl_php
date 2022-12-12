@@ -1,0 +1,50 @@
+<?php 
+include "config.php";
+require_once "PHPExcel.php";
+$lenh_sx_list = mysqli_fetch_all(mysqli_query($con,"SELECT * FROM LENHSANXUAT INNER JOIN YEUCAUSANXUAT ON LENHSANXUAT.maYeuCauSanXuat=YEUCAUSANXUAT.maYeuCauSanXuat INNER JOIN chitietyeucau ON chitietyeucau.maYeuCauSanXuat = YEUCAUSANXUAT.maYeuCauSanXuat inner join sanpham on sanpham.maSanPham = chitietyeucau.maSanPham INNER JOIN CONGDOAN ON CONGDOAN.maCongDoan = LENhSANXUAT.maCongDoan order by ngayHoanThanh"));
+// print_r($lenh_sx_list);
+$excel =  new PHPExcel();
+$excel->setActiveSheetIndex(0);
+$excel->getActiveSheet()->getColumnDimension('A')->setWidth(15);
+$excel->getActiveSheet()->getColumnDimension('B')->setWidth(15);
+$excel->getActiveSheet()->getColumnDimension('C')->setWidth(15);
+$excel->getActiveSheet()->getColumnDimension('D')->setWidth(15);
+$excel->getActiveSheet()->getColumnDimension('E')->setWidth(15);
+$excel->getActiveSheet()->getColumnDimension('F')->setWidth(15);
+$excel->getActiveSheet()->getColumnDimension('G')->setWidth(15);
+$excel->getActiveSheet()->getColumnDimension('H')->setWidth(15);
+$excel->getActiveSheet()->getColumnDimension('I')->setWidth(15);
+$excel->getActiveSheet()->getColumnDimension('J')->setWidth(15);
+$excel->getActiveSheet()->setTitle("danh sách lệnh sản xuất");
+$excel->getActiveSheet()->setCellValue('A1','mã lệnh sản xuất');
+$excel->getActiveSheet()->setCellValue('B1','tên lệnh sản xuất');
+$excel->getActiveSheet()->setCellValue('C1','mã yêu cầu sản xuất');
+$excel->getActiveSheet()->setCellValue('D1','tên sản phẩm');
+$excel->getActiveSheet()->setCellValue('E1','số lượng sản xuất');
+$excel->getActiveSheet()->setCellValue('F1','tổ sản xuất');
+$excel->getActiveSheet()->setCellValue('G1','công đoạn');
+$excel->getActiveSheet()->setCellValue('H1','ngày hoàn thành');
+$excel->getActiveSheet()->setCellValue('I1','ngày lập');
+$excel->getActiveSheet()->setCellValue('J1','người lập');
+$numRow=2;
+foreach($lenh_sx_list as $row) {
+    $excel->getActiveSheet()->setCellValue('A' . $numRow,$row[0]);
+    $excel->getActiveSheet()->setCellValue('B' . $numRow,$row[1]);
+    $excel->getActiveSheet()->setCellValue('C' . $numRow,$row[3]);
+    $excel->getActiveSheet()->setCellValue('D' . $numRow,$row[18]);
+    $excel->getActiveSheet()->setCellValue('E' . $numRow,$row[8]);
+    $excel->getActiveSheet()->setCellValue('F' . $numRow,$row[4]);
+    $excel->getActiveSheet()->setCellValue('G' . $numRow,$row[24]);
+    $excel->getActiveSheet()->setCellValue('H' . $numRow,$row[10]);
+    $excel->getActiveSheet()->setCellValue('I' . $numRow,$row[13]);
+    $excel->getActiveSheet()->setCellValue('J' . $numRow,$row[6]);
+    $numRow++;
+}
+$ojbWiter = new PHPExcel_Writer_Excel2007($excel);
+$filename ="danh_sach_lenh_san_xuat_".time().".xls";
+$ojbWiter->save($filename);
+header('Content-type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+header('Content-Disposition: attachment; filename='.$filename);
+readfile($filename);
+return;
+?>
