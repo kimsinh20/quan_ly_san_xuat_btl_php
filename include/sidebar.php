@@ -1,3 +1,18 @@
+<?php
+if(!isset($_SESSION)) 
+{ 
+    session_start(); 
+} 
+$vaiTro =$_SESSION['vaiTro'];
+function checkQuyen ($quyen) {
+if($quyen=='adminsx') {
+  return 0;
+} else if($quyen=='user') {
+    return 1;
+}
+return 2;
+} 
+?>
 <style>
   /* .nav-item {
     display: flex;
@@ -18,6 +33,7 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+         <?php if(checkQuyen($vaiTro)==0) { ?>      
         <li class="nav-item menu-open">
           <a href="home.php" class="nav-link active">
             <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -25,7 +41,9 @@
             Dashboard
             </p>
           </a>
+          <?php } ?>
         </li>
+        <?php if(checkQuyen($vaiTro)==0) { ?>   
         <li class="nav-item">
           <a href="qlsanpham.php" class="nav-link">
             <i class="fa-solid fa-shop"></i>
@@ -34,6 +52,8 @@
             </p>
           </a>
         </li>
+        <?php } ?>
+        <?php if(checkQuyen($vaiTro)==0) { ?>   
         <li class="nav-item">
           <a href="lenhsanxuat.php" class="nav-link">
             <i class="fa-solid fa-gears"></i>
@@ -57,6 +77,8 @@
             </li>
           </ul>
         </li>
+        <?php } ?>
+        <?php if(checkQuyen($vaiTro)==0) { ?>   
         <li class="nav-item">
           <a href="yeucausx.php" class="nav-link">
             <i class="fa-solid fa-code-pull-request"></i>
@@ -85,6 +107,8 @@
             </li>
           </ul>
         </li>
+        <?php } ?>
+        <?php if(checkQuyen($vaiTro)==0) { ?>   
         <li class="nav-item">
           <a href="dinhmucvattu.php" class="nav-link">
             <i class="fa-solid fa-parachute-box"></i>
@@ -114,6 +138,8 @@
             </li>
           </ul>
         </li>
+        <?php } ?>
+        <?php if(checkQuyen($vaiTro)==0) { ?>   
         <li class="nav-item">
           <a href="congdoan.php" class="nav-link">
           <i class="fa-solid fa-book"></i>
@@ -122,6 +148,8 @@
             </p>
           </a>
         </li>
+        <?php } ?>
+        <?php if(checkQuyen($vaiTro)==0) { ?>   
         <li class="nav-item">
           <a href="khanangsanxuat.php" class="nav-link">
             <i class="fa-solid fa-shop"></i>
@@ -130,6 +158,8 @@
             </p>
           </a>
         </li>
+        <?php } ?>
+        <?php if(checkQuyen($vaiTro)==0) { ?>   
         <li class="nav-item">
           <a href="#" class="nav-link">
           <i class="fa-solid fa-kaaba"></i>
@@ -153,6 +183,8 @@
             </li>
           </ul>
         </li>
+        <?php } ?>
+        <?php if(checkQuyen($vaiTro)==0) { ?>   
         <li class="nav-item">
           <a href="#" class="nav-link">
           <i class="fa-solid fa-calendar-days"></i>
@@ -176,14 +208,27 @@
             </li>
           </ul>
         </li>
-        <li class="nav-item">
-          <a href="taikhoan.php" class="nav-link">
+        <?php } ?>
+        <?php if(checkQuyen($vaiTro)==2) { ?> 
+          <li class="nav-item">
+            <a href="taikhoan.php" class="nav-link">
           <i class="fa-solid fa-users"></i>
             <p>
               quản lý tài khoản
             </p>
           </a>
         </li>
+        <?php } ?>
+        <?php if(checkQuyen($vaiTro)==1) { ?> 
+          <li class="nav-item">
+            <a href="xemlsx.php" class="nav-link">
+          <i class="fa-solid fa-users"></i>
+            <p>
+              Xem lệnh sản xuất
+            </p>
+          </a>
+        </li>
+        <?php } ?>
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

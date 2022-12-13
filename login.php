@@ -4,7 +4,7 @@ require_once 'config.php';
 if (isset($_POST['submit'])) {
   $tenDangNhap = $_POST['tenDangNhap'];
   $matKhau = MD5($_POST['matKhau']);
-  $sql_check = mysqli_query($con, "select * from TAIKHOAN where tenDangNhap = '$tenDangNhap';");
+  $sql_check = mysqli_query($con, "select * from TAIKHOAN where tenDangNhap = '$tenDangNhap' or email ='$tenDangNhap';");
   $dem = mysqli_num_rows($sql_check);
   if ($dem == 0) {
     $_SESSION['thongbaoloi'] = "Tài khoản không thồn tại";
@@ -27,7 +27,7 @@ if (isset($_POST['submit'])) {
     else {
       $row = mysqli_fetch_array($sql_check2);
       // setcookie('checkDN', $tenDangNhap, time() + (86400 * 15), "/");
-      $_SESSION['tenDangNhap'] = $tenDangNhap;
+      $_SESSION['tenDangNhap'] = $row['tenDangNhap'];
       $_SESSION['vaiTro'] = $row['vaiTro'];
 
       if ($_SESSION['vaiTro'] == 'adminsx') {
@@ -42,14 +42,14 @@ if (isset($_POST['submit'])) {
         echo "
 							<script language='javascript'>
 								alert('Đăng nhập với quyền nhân viên thành công');
-								window.open('login.php','_self', 1);
+								window.open('xemlsx.php','_self', 1);
 							</script>
 						";
       } else {
         echo "
         <script language='javascript'>
           alert('Đăng nhập với quyền admin hệ thống thành công');
-          window.open('login.php','_self', 1);
+          window.open('taikhoan.php','_self', 1);
         </script>
       ";
       }
