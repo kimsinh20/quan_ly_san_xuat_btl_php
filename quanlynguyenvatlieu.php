@@ -98,7 +98,7 @@ include "layout.php";
                             <th scope="col"><?php echo $r['donViTinh']; ?></th>
                             <th scope="col"><?php echo $r['tenDanhMuc']; ?></th>
                             <th scope="col">
-                                <a style="margin-right: 15px;" href="./suanguyenvatlieu.php?id=<?= $r['manguyenvatlieu'] ?>" class="btn btn btn-danger">sửa</a>
+                                <a style="margin-right: 15px;" href="./suanguyenvatlieu.php?id=<?= $r['maNguyenVatLieu'] ?>" class="btn btn btn-danger">sửa</a>
                                 <a href="./xoanguyenvatlieu.php?id=<?= $r['maNguyenVatLieu'] ?>" class="btn btn-info">xóa</a>
                             </th>
                         </tr>

@@ -17,11 +17,14 @@ $hoVaTen=$_POST['hoVaTen'];
 $matKhau=md5($_POST['matKhau'], false);
 $email=$_POST['email'];
 $soDienThoai=$_POST['soDienThoai'];
-$anh=isset($_FILES['hinhanh']['name']) ? $_FILES['hinhanh']['name'] :$result['anh'];
+$anh=!empty($_FILES['hinhanh']['name']) ? $_FILES['hinhanh']['name'] :$result['anh'];
 $target_dir = './dist/assest/image/';
 $target_file = $target_dir . basename($anh);
-move_uploaded_file($_FILES["hinhanh"]["tmp_name"],$target_file);
-    
+$filetype=$_FILES['hinhanh']['type'];
+if($filetype=='image/jpeg' or $filetype=='image/png' or $filetype=='image/gif')
+{
+    move_uploaded_file($_FILES["hinhanh"]["tmp_name"],$target_file);
+}
 $sqlupdate = "update taikhoan set hoVaTen='$hoVaTen',email='$email',soDienThoai='$soDienThoai',matKhau='$matKhau',anh='$anh' where tenDangNhap = '$tenDN'";
 $result_update =mysqli_query($con,$sqlupdate);
 if($result_update) {

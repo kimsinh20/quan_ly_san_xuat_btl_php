@@ -32,7 +32,7 @@ include "layout.php";
         <div class="container-fluid">
             <div class="content-header">
                 <button type="button" style="flex: 1;margin-left: 30px;" class="btn btn-success button-create" data-toggle="modal" data-target="#exampleModal">
-                <a href="themcongdoan.php" style="text-decoration: none;color: #fff;">thêm thực tế sản xuất</a></button>
+                <a href="themthuctesanxuat.php" style="text-decoration: none;color: #fff;">thêm thực tế sản xuất</a></button>
                 <form method="POST" style="float: right; display: flex;justify-content: space-around;margin-right: 30px;">
                     <input type="text" placeholder="tìm kiếm" class="timkiem" style="width: 400px;">
                     </a>
